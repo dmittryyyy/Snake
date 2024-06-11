@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import Header from "./components/Header";
-import Modal from "./components/Modal/Modal.tsx";
+import Modal from "./components/Modal";
 
 function App() {
   const [modalContent, setModalContent] = useState({
