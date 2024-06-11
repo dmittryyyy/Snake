@@ -14,6 +14,7 @@ export default {
             'current': 'currentColor',
             'transparent': 'transparent',
             'main': '#f2efea',
+            'white': '#ffffff',
             'blue': {
                 '100': '#5c99fa',
                 '50': '#8bb2f6',
@@ -26,12 +27,13 @@ export default {
             'red': '#c93126',
             'yellow': '#e6d627',
             'gold': '#CDA973',
-            'text': {
+            'text-color': {
                 100: '#E6E6E6',
                 200: '#CCCCCC',
                 400: '#999999',
                 500: '#4A4A4A'
-            }
+            },
+            'black': '#000',
         },
         extend: {
             fontFamily: {sans: ['Cursive', 'sans-serif']},
