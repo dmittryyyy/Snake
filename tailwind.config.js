@@ -14,6 +14,7 @@ export default {
             'current': 'currentColor',
             'transparent': 'transparent',
             'main': '#f2efea',
+            'field': '#ffffdd',
             'white': '#ffffff',
             'blue': {
                 '100': '#5c99fa',
