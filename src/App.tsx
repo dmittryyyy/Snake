@@ -1,12 +1,25 @@
+import { useState } from "react";
+
 import Header from "./components/Header";
+import Modal from "./components/Modal/Modal.tsx";
 
 function App() {
+  const [modalContent, setModalContent] = useState({
+    title: null,
+    text: null,
+    prompt: null,
+  });
+
   return (
-      <>
-          <Header />
-          Snake
-      </>
-  )
+    <>
+      <Modal
+        title={modalContent.title}
+        text={modalContent.text}
+        prompt={modalContent.prompt}
+      />
+      <Header />
+    </>
+  );
 }
 
-export default App
+export default App;
