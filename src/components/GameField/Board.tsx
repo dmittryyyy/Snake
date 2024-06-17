@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import { SnakeGameEngine } from "./Game";
 
 interface SnakeGameBoard {
   isPlaying: boolean;
@@ -16,15 +17,77 @@ export default function SnakeBoard({
   setIsGameOver,
 }: SnakeGameBoard) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  console.log(isPlaying,
-      setIsPlaying,
-      externalScore,
-      setScore,
-      setIsGameOver,)
+  const context = useRef<CanvasRenderingContext2D | null>(null);
+
+  const snakes = useRef<SnakeGameEngine | null>(null);
+
+  const canvasSidesLength = 500; // in px
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      canvasRef.current.width = canvasSidesLength;
+      canvasRef.current.height = canvasSidesLength;
+      context.current = canvasRef.current.getContext("2d");
+
+      if (context.current) {
+        const ctx = context.current;
+        snakes.current = new SnakeGameEngine(
+            ctx,
+            canvasSidesLength,
+            externalScore,
+            setScore,
+            setIsGameOver,
+            isPlaying,
+        );
+        const snakeGame = snakes.current;
+
+        window.onkeydown = (e) => {
+          switch (e.key) {
+            case "w":
+            case "ArrowUp":
+              snakeGame.snake.changeMovement("to top");
+              break;
+            case "s":
+            case "ArrowDown":
+              snakeGame.snake.changeMovement("to bottom");
+              break;
+            case "d":
+            case "ArrowRight":
+              snakeGame.snake.changeMovement("to right");
+              break;
+            case "a":
+            case "ArrowLeft":
+              snakeGame.snake.changeMovement("to left");
+              break;
+            case "Escape":
+              setIsPlaying((prevIsPlaying) => {
+                return !prevIsPlaying;
+              });
+              break;
+            default:
+              break;
+          }
+        };
+      }
+
+      return () => {
+        canvasRef.current = null;
+        context.current = null;
+        snakes.current = null;
+      };
+    }
+  }, [externalScore, isPlaying, setIsGameOver, setIsPlaying, setScore]);
+
+  useEffect(() => {
+    if (snakes.current) {
+      snakes.current.animate(isPlaying);
+    }
+  }, [isPlaying]);
+
   return (
     <div>
       <canvas
-        className="block outline outline-2 outline-black m-0 bg-white"
+        className="block outline outline-2 outline-black m-0 m-auto bg-white"
         ref={canvasRef}
       ></canvas>
     </div>
