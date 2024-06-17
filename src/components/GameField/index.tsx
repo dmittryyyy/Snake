@@ -1,1 +1,1 @@
-export { default as Field } from "./Board";
+export { default as Board } from "./Board";

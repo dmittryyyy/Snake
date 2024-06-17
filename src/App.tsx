@@ -1,21 +1,15 @@
-// import { useState } from "react";
-
 import Header from "./components/Header";
-import { Field } from './components/GameField/index.tsx';
-// import Modal from "./components/Modal";
+import { Board } from "./components/GameField/index.tsx";
 
 import { useState } from "react";
 import HighScore from "./components/HighScore";
 import Score from "./components/Score";
 
 import { HIGH_SCORE_KEY } from "./constants.ts";
+import ModalGameOver from "./components/Modals/ModalGameOver.tsx";
+import PausedModal from "./components/Modals/ModalPaused.tsx";
 
 function App() {
-  // const [modalContent, setModalContent] = useState({
-  //   title: null,
-  //   text: null,
-  //   prompt: null,
-  // });
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,11 +34,19 @@ function App() {
 
   return (
     <div className="grid grid-cols-12 gap-x-4">
-      {/*<Modal*/}
-      {/*  title={modalContent.title}*/}
-      {/*  text={modalContent.text}*/}
-      {/*  prompt={modalContent.prompt}*/}
-      {/*/>*/}
+      {isGameOver && (
+        <ModalGameOver
+          setIsGameOver={setIsGameOver}
+          setIsPlaying={setIsPlaying}
+          finalScore={score}
+          setJustStarted={setJustStarted}
+          setScore={setScore}
+        />
+      )}
+      {justStarted
+        ? ""
+        : !isGameOver &&
+          !isPlaying && <PausedModal setIsPlaying={setIsPlaying} />}
       <Header />
       <HighScore
         score={highScore}
@@ -60,7 +62,7 @@ function App() {
           className="m-0 mt-4 m-auto"
         />
         {!isGameOver && !justStarted && (
-          <Field
+          <Board
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
             externalScore={score}

@@ -10,7 +10,7 @@ const Score = ({ score, justStarted, className }: ScoreProps) => {
   return (
     <div
       className={clsx(
-        "w-max flex items-center justify-center rounded-xl",
+        "w-max flex items-center justify-center rounded-xl mb-3",
         className,
       )}
     >

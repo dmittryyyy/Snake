@@ -1,5 +1,5 @@
 import Snake from "./Snake";
-import { Coordinate } from "../../types/gameField.ts";
+import { Coordinate } from "../../types/coordinate.ts";
 
 type Cell = "snake" | "food" | null;
 
