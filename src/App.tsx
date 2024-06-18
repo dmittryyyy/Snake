@@ -1,13 +1,13 @@
 import Header from "./components/Header";
 import { Board } from "./components/GameField/index.tsx";
 
-import { useState } from "react";
 import HighScore from "./components/HighScore";
 import Score from "./components/Score";
 
 import { HIGH_SCORE_KEY } from "./constants.ts";
 import ModalGameOver from "./components/Modals/ModalGameOver.tsx";
 import PausedModal from "./components/Modals/ModalPaused.tsx";
+import {useCallback, useEffect, useState} from "react";
 
 function App() {
   const [score, setScore] = useState(0);
@@ -20,7 +20,7 @@ function App() {
   }
   const highScore = Number(localStorage.getItem(HIGH_SCORE_KEY));
 
-  const handleBodyClick = () => {
+  const handleBodyClick = useCallback(() => {
     if (justStarted) {
       setIsPlaying(true);
       setJustStarted(false);
@@ -30,7 +30,21 @@ function App() {
     }
 
     !isGameOver && setIsPlaying(!isPlaying);
-  };
+  }, [isGameOver, isPlaying, justStarted]);
+
+  const handleKeyDown = useCallback((e: { key: string }) => {
+    if (e.key === "Enter") {
+      handleBodyClick();
+    }
+  }, [handleBodyClick]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   return (
     <div className="grid grid-cols-12 gap-x-4">

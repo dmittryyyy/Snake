@@ -32,12 +32,12 @@ export default function SnakeBoard({
       if (context.current) {
         const ctx = context.current;
         snakes.current = new SnakeGameEngine(
-            ctx,
-            canvasSidesLength,
-            externalScore,
-            setScore,
-            setIsGameOver,
-            isPlaying,
+          ctx,
+          canvasSidesLength,
+          externalScore,
+          setScore,
+          setIsGameOver,
+          isPlaying,
         );
         const snakeGame = snakes.current;
 
@@ -46,18 +46,22 @@ export default function SnakeBoard({
             case "w":
             case "ArrowUp":
               snakeGame.snake.changeMovement("to top");
+              e.preventDefault();
               break;
             case "s":
             case "ArrowDown":
               snakeGame.snake.changeMovement("to bottom");
+              e.preventDefault();
               break;
             case "d":
             case "ArrowRight":
               snakeGame.snake.changeMovement("to right");
+              e.preventDefault();
               break;
             case "a":
             case "ArrowLeft":
               snakeGame.snake.changeMovement("to left");
+              e.preventDefault();
               break;
             case "Escape":
               setIsPlaying((prevIsPlaying) => {

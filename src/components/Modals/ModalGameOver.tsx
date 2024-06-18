@@ -1,5 +1,5 @@
 import { HIGH_SCORE_KEY } from "../../constants";
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 
 interface GameOverModal {
   finalScore: number;
@@ -16,13 +16,27 @@ export default function GameOverModal({
   setJustStarted,
   setScore,
 }: GameOverModal) {
-  const handleGameReset = () => {
+  const handleGameReset = useCallback(() => {
     // restart the game
     setIsGameOver(false);
     setIsPlaying(true);
     setJustStarted(true);
     setScore(0);
-  };
+  }, [setIsGameOver, setIsPlaying, setJustStarted, setScore]);
+
+  const handleKeyDown = useCallback((e: { key: string }) => {
+    if (e.key === "Enter") {
+      handleGameReset();
+    }
+  }, [handleGameReset]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   const currentHighScore = Number(localStorage.getItem(HIGH_SCORE_KEY));
   const highScoreBeaten = finalScore > currentHighScore;
