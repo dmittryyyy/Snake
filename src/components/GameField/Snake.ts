@@ -1,4 +1,4 @@
-import { Coordinate } from "../../types/gameField";
+import { Coordinate } from "../../types/coordinate";
 
 type SnakeMovements = "to right" | "to left" | "to bottom" | "to top";
 

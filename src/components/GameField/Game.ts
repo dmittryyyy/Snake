@@ -1,5 +1,6 @@
 import Snake from "./Snake";
 import { Coordinate } from "../../types/coordinate.ts";
+import React from "react";
 
 type Cell = "snake" | "food" | null;
 
