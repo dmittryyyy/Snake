@@ -10,7 +10,7 @@ export class SnakeGameEngine {
   private numOfRowsAndCols: number;
   private _gameBoard: Cell[][];
   private _foodCoordinate: Coordinate;
-  // these two sets how often the re-render is
+
   private readonly staggerFrame: number;
   private currentFrameCount: number;
 
@@ -45,7 +45,6 @@ export class SnakeGameEngine {
     this.setScore = setScore;
     this.setIsGameOver = setIsGameOver;
 
-    // these 2 properties set how often the re-render is
     this.currentFrameCount = 0;
     this.staggerFrame = 8;
 
@@ -197,8 +196,6 @@ export class SnakeGameEngine {
   }
 
   private snakeHitsBody() {
-    // check if head has similar coord with existing body coords
-
     const snakeBody = this.snake.bodyCoordinates.slice(
       0,
       this.snake.length - 1,

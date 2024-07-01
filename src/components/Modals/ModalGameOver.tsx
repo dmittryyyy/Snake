@@ -16,8 +16,8 @@ export default function GameOverModal({
   setJustStarted,
   setScore,
 }: GameOverModal) {
+
   const handleGameReset = useCallback(() => {
-    // restart the game
     setIsGameOver(false);
     setIsPlaying(true);
     setJustStarted(true);

@@ -71,7 +71,6 @@ export default class Snake {
       (newMove === "to left" && this.movement === "to right");
 
     if (rowOpposite || columnOpposite) {
-      // just ignore the oposing movement
       return;
     }
 
@@ -84,7 +83,6 @@ export default class Snake {
   }
 
   move(foodCoord: Coordinate) {
-    // TODO: Set justAte if has eaten or not
 
     let nextHead: Coordinate = { ...this.headCoordinate };
 
@@ -117,7 +115,6 @@ export default class Snake {
         throw new Error(`Snake movement is invalid: ${this.movement}`);
     }
     if (this.canEat(nextHead, foodCoord)) {
-      // we don't cut the snake
       const newSnakeCoordinates = [...this.bodyCoordinates];
       this.headCoordinate = nextHead;
       newSnakeCoordinates.push(this.headCoordinate);
